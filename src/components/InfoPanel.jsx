@@ -34,64 +34,66 @@ const InfoPanel = () => {
   }, [balanceData]);
   //   console.log(JSON.parse(localStorage.getItem("expenses")).price);
   return (
-    <div className="info-panel-container">
-      <div>
-        <p>
-          Wallet Balance:{" "}
-          <span
+    <>
+      <div className="info-panel-container">
+        <div>
+          <p>
+            Wallet Balance:{" "}
+            <span
+              style={{
+                fontWeight: "700",
+                color: " #89E148",
+              }}
+            >
+              &#8377;{balanceData}
+            </span>
+          </p>
+          <button
             style={{
-              fontWeight: "700",
-              color: " #89E148",
+              background: "linear-gradient(#B5DC52, #89E148)",
             }}
+            onClick={() => setBalanceModalIsOpen(true)}
           >
-            &#8377;{balanceData}
-          </span>
-        </p>
-        <button
-          style={{
-            background: "linear-gradient(#B5DC52, #89E148)",
-          }}
-          onClick={() => setBalanceModalIsOpen(true)}
-        >
-          +Add Income
-        </button>
-      </div>
-      <div>
-        <p>
-          Expenses:{" "}
-          <span
+            +Add Income
+          </button>
+        </div>
+        <div>
+          <p>
+            Expenses:{" "}
+            <span
+              style={{
+                fontWeight: "700",
+                color: " #F4BB4A",
+              }}
+            >
+              &#8377;{expensePrice}
+            </span>
+          </p>
+          <button
             style={{
-              fontWeight: "700",
-              color: " #F4BB4A",
+              background: "linear-gradient(#FF9595, #FF4747,#FF3838)",
             }}
+            onClick={() => setExpenseModalIsOpen(true)}
           >
-            &#8377;{expensePrice}
-          </span>
-        </p>
-        <button
-          style={{
-            background: "linear-gradient(#FF9595, #FF4747,#FF3838)",
-          }}
-          onClick={() => setExpenseModalIsOpen(true)}
-        >
-          +Add Expense
-        </button>
-      </div>
-      <div className="chart-container">
-        <PieChartComp expData={expenseData} />
-      </div>
+            +Add Expense
+          </button>
+        </div>
+        <div className="chart-container">
+          <PieChartComp expData={expenseData} />
+        </div>
 
-      <BalanceModal
-        isModalOpen={balanceModalIsOpen}
-        setModalState={setBalanceModalIsOpen}
-        balanceData={setBalanceData}
-      />
-      <ExpenseModal
-        isModalOpen={expenseModalIsOpen}
-        setModalState={setExpenseModalIsOpen}
-        balanceData={setBalanceData}
-      />
-    </div>
+        <BalanceModal
+          isModalOpen={balanceModalIsOpen}
+          setModalState={setBalanceModalIsOpen}
+          balanceData={setBalanceData}
+        />
+        <ExpenseModal
+          isModalOpen={expenseModalIsOpen}
+          setModalState={setExpenseModalIsOpen}
+          balanceData={setBalanceData}
+        />
+      </div>
+    </>
   );
 };
 

@@ -1,37 +1,14 @@
-// import React from 'react'
-
-import { useState } from "react";
+import React, { useState } from "react";
 import ReactModal from "react-modal";
-
-const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
+const EditExpenseModal = ({ isModalOpen, setModalState, expenseData }) => {
   const [formData, setFormData] = useState({
-    title: "",
-    price: "",
-    category: "",
-    date: "",
+    title: expenseData.title,
+    price: expenseData.price,
+    category: expenseData.category,
+    date: expenseData.date,
   });
-  const handleFormSubmit = (e) => {
+  const handleEditForm = (e) => {
     e.preventDefault();
-    localStorage.setItem(
-      "expenses",
-      JSON.stringify([
-        ...(JSON.parse(localStorage.getItem("expenses")) || []),
-        {
-          id: Math.random().toString(36).slice(2, 10),
-          title: e.target["title"].value,
-          price: e.target["price"].value,
-          category: e.target["category"].value,
-          date: e.target["date"].value,
-        },
-      ])
-    );
-    localStorage.setItem(
-      "balance-amount",
-      parseInt(localStorage.getItem("balance-amount")) -
-        parseInt(formData.price)
-    );
-    balanceData(localStorage.getItem("balance-amount"));
-    setFormData({ title: "", price: "", category: "", date: "" });
   };
   return (
     <ReactModal
@@ -39,8 +16,8 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
       className={"modal-container"}
       ariaHideApp={false}
     >
-      <h2>Add Expenses</h2>
-      <form className="expense-form" onSubmit={handleFormSubmit}>
+      <h2>Edit Expenses</h2>
+      <form className="expense-form" onSubmit={handleEditForm}>
         <input
           type="text"
           placeholder="Title"
@@ -97,4 +74,4 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
   );
 };
 
-export default ExpenseModal;
+export default EditExpenseModal;

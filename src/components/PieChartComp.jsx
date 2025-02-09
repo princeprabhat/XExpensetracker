@@ -14,7 +14,7 @@ const PieChartComp = ({ expData }) => (
       cx="50%"
       cy="50%"
       outerRadius={100}
-      // fill="#8884d8"
+      // fill="#ffffff"
       dataKey="value"
       nameKey="name"
     >
@@ -28,7 +28,8 @@ const PieChartComp = ({ expData }) => (
       iconType="rect"
       iconSize={18}
       wrapperStyle={{
-        fontSize: "16px",
+        fontSize: "17px",
+        fontWeight: "500",
       }}
     />
   </PieChart>
