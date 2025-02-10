@@ -11,9 +11,10 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
     category: "",
     date: "",
   });
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     if (
       Number(JSON.parse(localStorage.getItem("balance-amount"))) <
       Number(e.target["price"].value)
@@ -84,14 +85,15 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
           }
         >
           <option value="">Select Category</option>
-          <option value="food">Foody</option>
-          <option value="groccery">Groccery</option>
-          <option value="phone bill">Phone Bill</option>
-          <option value="">Select Category</option>
-          <option value="">Select Category</option>
+          <option value="food">Food</option>
+          <option value="travel">Travel</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="grocery">Grocery</option>
+          <option value="shopping">Shopping</option>
+          <option value="others">Others</option>
         </select>
         <input
-          type="text"
+          type="date"
           name="date"
           id="date"
           placeholder="dd/mm/yy"

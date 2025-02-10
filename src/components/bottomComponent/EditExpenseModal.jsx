@@ -1,19 +1,50 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
+import { useSnackbar } from "notistack";
 const EditExpenseModal = ({
   isModalOpen,
   setModalState,
-  expenseData,
+  expenseIdData,
   editExpense,
 }) => {
   const [formData, setFormData] = useState({
-    title: expenseData.title,
-    price: expenseData.price,
-    category: expenseData.category,
-    date: expenseData.date,
+    title: expenseIdData.title,
+    price: expenseIdData.price,
+    category: expenseIdData.category,
+    date: expenseIdData.date,
   });
+
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleEditForm = (e) => {
     e.preventDefault();
+    // If the wallet balance is lower than the price change needed then show the snackbar and close the modal.
+    if (
+      localStorage.getItem("balance-amount") <
+      formData.price - expenseIdData.price
+    ) {
+      enqueueSnackbar("Wallet Balance is low", {
+        autoHideDuration: 3000,
+        variant: "error",
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+      });
+      setModalState(false);
+      setFormData({
+        title: expenseIdData.title,
+        price: expenseIdData.price,
+        category: expenseIdData.category,
+        date: expenseIdData.date,
+      });
+      return;
+    }
+
+    editExpense(expenseIdData.id, formData);
+    enqueueSnackbar("Expense list has been updated", {
+      autoHideDuration: 3000,
+      variant: "success",
+      anchorOrigin: { vertical: "top", horizontal: "center" },
+    });
+    setModalState(false);
   };
   return (
     <ReactModal
@@ -49,14 +80,15 @@ const EditExpenseModal = ({
           }
         >
           <option value="">Select Category</option>
-          <option value="food">Foody</option>
-          <option value="groccery">Groccery</option>
-          <option value="phone bill">Phone Bill</option>
-          <option value="">Select Category</option>
-          <option value="">Select Category</option>
+          <option value="food">Food</option>
+          <option value="travel">Travel</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="grocery">Grocery</option>
+          <option value="shopping">Shopping</option>
+          <option value="others">Others</option>
         </select>
         <input
-          type="text"
+          type="date"
           name="date"
           id="date"
           placeholder="dd/mm/yy"
@@ -65,11 +97,7 @@ const EditExpenseModal = ({
           required
         />
 
-        <button
-          className="add-balance-btn"
-          type="submit"
-          onClick={() => editExpense(expenseData.id)}
-        >
+        <button className="add-balance-btn" type="submit">
           Add Expense
         </button>
         <button

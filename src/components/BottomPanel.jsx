@@ -28,7 +28,7 @@ const BottomPanel = ({ expDataSet, editExpense, deleteExpense }) => {
       <div className="top-expenses-conatainer">
         <div className="bottom-panel-headings">Top Expenses</div>
         <div className="top-expense-box">
-          <BarChartComponent />
+          <BarChartComponent exPData={expDataSet} />
         </div>
       </div>
     </div>

@@ -23,6 +23,7 @@ const InfoPanel = () => {
     const currentBalance =
       Number(exData.find((val) => val.id == expenseId).price) +
       Number(JSON.parse(localStorage.getItem("balance-amount")));
+    localStorage.setItem("balance-amount", JSON.stringify(currentBalance));
     // console.log("Full balance::", balanceData);
     // console.log("Current balance", currentBalance);
     const filteredData = exData.filter((val) => val.id !== expenseId);
@@ -32,9 +33,32 @@ const InfoPanel = () => {
     // Add it to the wallet balance
     setBalanceData(currentBalance);
   }
-  //   TODO: Edit the selected expense and update the wallet and expenses accordingly
-  function editExpense(expenseId) {
-    console.log("ExpenseEdited for id", expenseId);
+  //Edit the selected expense and update the wallet and expenses accordingly
+
+  //   expenseId=id of the selected expense,expenseIdData it is coming from EditExpenseComponent.
+
+  function editExpense(expenseId, formData) {
+    const oldPrice = expenseData.find((val) => val.id == expenseId).price;
+
+    // Filter out the expense data by removing the selected expense. then add the formData to the remaining filtered data, and update the localstorage Data for expense.
+    const filteredExpense = expenseData.filter((val) => val.id !== expenseId);
+    filteredExpense.push({ ...formData, id: expenseId });
+    localStorage.setItem("expenses", JSON.stringify(filteredExpense));
+    setExpenseData(filteredExpense);
+    // compare both price from local vs current form data.
+    // If the price is greater than 0 then decrease the wallet balance of that amount. If the price is smaller than 0 then add the amount to wallet balance.
+    if (formData.price > oldPrice) {
+      localStorage.setItem(
+        "balance-amount",
+        JSON.stringify(Number(balanceData) - Number(formData.price - oldPrice))
+      );
+    } else if (formData.price < oldPrice) {
+      localStorage.setItem(
+        "balance-amount",
+        JSON.stringify(Number(balanceData) + Number(oldPrice - formData.price))
+      );
+    }
+    setBalanceData(localStorage.getItem("balance-amount"));
   }
 
   useEffect(() => {

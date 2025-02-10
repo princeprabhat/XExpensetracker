@@ -2,11 +2,34 @@ import React, { useState } from "react";
 import { SlPencil } from "react-icons/sl";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { PiPizza } from "react-icons/pi";
-import ExpenseModal from "../ExpenseModal";
+
 import EditExpenseModal from "./EditExpenseModal";
+
+const Months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 const RecentTransaction = ({ exData, editExpense, deleteExpense }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Format the date for the expense card as from 11-12-2024 to Nov-12-2024
+
+  const formatDate = (date) => {
+    const dateSplit = date.split("-");
+
+    return `${Months[dateSplit[1] - 1]} ${dateSplit[2]}, ${dateSplit[0]}`;
+  };
   return (
     <>
       <div className="recent-item-container">
@@ -16,7 +39,9 @@ const RecentTransaction = ({ exData, editExpense, deleteExpense }) => {
           </div>
           <div className="item-details">
             <div>{exData.title}</div>
-            <div style={{ color: "#9B9B9B" }}>{exData.date}</div>
+            <div style={{ color: "#9B9B9B", marginTop: "6px" }}>
+              {formatDate(exData.date)}
+            </div>
           </div>
         </div>
         <div className="item-section-right">
@@ -51,7 +76,7 @@ const RecentTransaction = ({ exData, editExpense, deleteExpense }) => {
         <EditExpenseModal
           isModalOpen={isModalOpen}
           setModalState={setIsModalOpen}
-          expenseData={exData}
+          expenseIdData={exData}
           editExpense={editExpense}
         />
       </div>
