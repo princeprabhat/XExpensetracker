@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
-const EditExpenseModal = ({ isModalOpen, setModalState, expenseData }) => {
+const EditExpenseModal = ({
+  isModalOpen,
+  setModalState,
+  expenseData,
+  editExpense,
+}) => {
   const [formData, setFormData] = useState({
     title: expenseData.title,
     price: expenseData.price,
@@ -60,7 +65,11 @@ const EditExpenseModal = ({ isModalOpen, setModalState, expenseData }) => {
           required
         />
 
-        <button className="add-balance-btn" type="submit">
+        <button
+          className="add-balance-btn"
+          type="submit"
+          onClick={() => editExpense(expenseData.id)}
+        >
           Add Expense
         </button>
         <button

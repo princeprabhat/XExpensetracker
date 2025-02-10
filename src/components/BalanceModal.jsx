@@ -6,7 +6,7 @@ const BalanceModal = ({ isModalOpen, setModalState, balanceData }) => {
   const [inputVal, setInputVal] = useState("");
   const handleBalanceData = (e) => {
     e.preventDefault();
-    if (e.target["amount"].value == "") return;
+    // if (e.target["amount"].value == "") return;
     localStorage.setItem(
       "balance-amount",
       parseInt(localStorage.getItem("balance-amount")) +
@@ -27,6 +27,7 @@ const BalanceModal = ({ isModalOpen, setModalState, balanceData }) => {
           type="number"
           placeholder="Income Amount"
           name="amount"
+          required
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
         />

@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import ReactModal from "react-modal";
 
@@ -10,8 +11,24 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
     category: "",
     date: "",
   });
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (
+      Number(JSON.parse(localStorage.getItem("balance-amount"))) <
+      Number(e.target["price"].value)
+    ) {
+      setFormData({ title: "", price: "", category: "", date: "" });
+      enqueueSnackbar("Wallet Balance is low", {
+        autoHideDuration: 3000,
+        variant: "warning",
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+      });
+      setModalState(false);
+
+      return;
+    }
+
     localStorage.setItem(
       "expenses",
       JSON.stringify([
@@ -88,7 +105,9 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
         </button>
         <button
           className="modal-close-btn"
-          onClick={() => setModalState(false)}
+          onClick={() => {
+            setModalState(false);
+          }}
         >
           Cancel
         </button>

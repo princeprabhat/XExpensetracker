@@ -5,7 +5,7 @@ import { PiPizza } from "react-icons/pi";
 import ExpenseModal from "../ExpenseModal";
 import EditExpenseModal from "./EditExpenseModal";
 
-const RecentTransaction = ({ exData }) => {
+const RecentTransaction = ({ exData, editExpense, deleteExpense }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
@@ -32,6 +32,7 @@ const RecentTransaction = ({ exData }) => {
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               cursor: "pointer",
             }}
+            onClick={() => deleteExpense(exData.id)}
           />
           <SlPencil
             size={36}
@@ -51,6 +52,7 @@ const RecentTransaction = ({ exData }) => {
           isModalOpen={isModalOpen}
           setModalState={setIsModalOpen}
           expenseData={exData}
+          editExpense={editExpense}
         />
       </div>
       <hr />
