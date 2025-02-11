@@ -8,6 +8,7 @@ const no_of_items_per_page = 3;
 
 const BottomPanel = ({ expDataSet, editExpense, deleteExpense }) => {
   const [activePage, setActivePage] = useState(0);
+
   const no_of_pages = Math.ceil(expDataSet.length / no_of_items_per_page);
   const start = no_of_items_per_page * activePage;
   const end = start + no_of_items_per_page;
@@ -24,9 +25,9 @@ const BottomPanel = ({ expDataSet, editExpense, deleteExpense }) => {
   return (
     <div className="bottom-panel-container">
       <div className="recent-transaction-container">
-        <div className="bottom-panel-headings">Recent transaction</div>
+        <div className="bottom-panel-headings">Recent Transactions</div>
         <div className="recent-trans-box">
-          {expDataSet.length > 0 ? (
+          {expDataSet.length > 0 && expDataSet[start] ? (
             expDataSet.slice(start, end).map((el) => {
               return (
                 <RecentTransaction
@@ -38,9 +39,13 @@ const BottomPanel = ({ expDataSet, editExpense, deleteExpense }) => {
               );
             })
           ) : (
-            <p>No transactions!</p>
+            <p style={{ textAlign: activePage + 1 > 1 ? "center" : "left" }}>
+              {activePage + 1 > 1
+                ? `No more transactions here, Please go back to explore other transactions`
+                : "No transactions!"}
+            </p>
           )}
-          {expDataSet.length > 3 && (
+          {expDataSet.length > 0 && (
             <div className="pagination-container">
               <div
                 className="pagination-button-container"

@@ -88,10 +88,10 @@ const EditExpenseModal = ({
           <option value="others">Others</option>
         </select>
         <input
-          type="date"
+          type="text"
           name="date"
           id="date"
-          placeholder="dd/mm/yy"
+          placeholder="yyyy-mm-dd"
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           required

@@ -11,10 +11,37 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
     category: "",
     date: "",
   });
+
+  const validateDate = (date) => {
+    const splitDate = date.split("-");
+
+    if (
+      splitDate[1] > 12 ||
+      splitDate[0] < 2000 ||
+      splitDate[2] > 31 ||
+      splitDate.length < 3
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   const { enqueueSnackbar } = useSnackbar();
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    if (!validateDate(e.target["date"].value)) {
+      setFormData({ title: "", price: "", category: "", date: "" });
+      enqueueSnackbar(
+        "Date format is not correct, kindly enter the date in correct format",
+        {
+          autoHideDuration: 3000,
+          variant: "warning",
+          anchorOrigin: { vertical: "top", horizontal: "center" },
+        }
+      );
+      setModalState(false);
+      return;
+    }
     if (
       Number(JSON.parse(localStorage.getItem("balance-amount"))) <
       Number(e.target["price"].value)
@@ -50,7 +77,9 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
     );
     balanceData(localStorage.getItem("balance-amount"));
     setFormData({ title: "", price: "", category: "", date: "" });
+    setModalState(false);
   };
+
   return (
     <ReactModal
       isOpen={isModalOpen}
@@ -93,15 +122,15 @@ const ExpenseModal = ({ isModalOpen, setModalState, balanceData }) => {
           <option value="others">Others</option>
         </select>
         <input
-          type="date"
+          type="text"
           name="date"
           id="date"
-          placeholder="dd/mm/yy"
+          placeholder="yyyy-mm-dd"
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           required
         />
-
+        {/* 2024-12-18 */}
         <button className="add-balance-btn" type="submit">
           Add Expense
         </button>

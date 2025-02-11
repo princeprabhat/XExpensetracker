@@ -60,7 +60,13 @@ const InfoPanel = () => {
     }
     setBalanceData(localStorage.getItem("balance-amount"));
   }
-
+  useEffect(() => {
+    localStorage.setItem(
+      "balance-amount",
+      localStorage.getItem("balance-amount") || 5000
+    );
+    setBalanceData(JSON.parse(localStorage.getItem("balance-amount")) || 5000);
+  }, []);
   useEffect(() => {
     localStorage.setItem(
       "balance-amount",
@@ -102,7 +108,7 @@ const InfoPanel = () => {
             }}
             onClick={() => setBalanceModalIsOpen(true)}
           >
-            +Add Income
+            + Add Income
           </button>
         </div>
         <div>

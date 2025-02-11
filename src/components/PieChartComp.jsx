@@ -7,12 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-// const data = [
-//   { name: "Javascript", value: 40 },
-//   { name: "Python", value: 30 },
-//   { name: "Java", value: 50 },
-//   { name: "PHP", value: 10 },
-// ];
+
 const colors = ["#ff9304", "#fde006", "#B5DC52", "#89E148"];
 const PieChartComp = ({ expData }) => (
   <ResponsiveContainer width="100%" height={350}>

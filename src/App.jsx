@@ -10,7 +10,6 @@ const App = () => {
     <div className="container-app">
       <h2 className="Expense-heading">Expense Tracker</h2>
       <InfoPanel />
-      {/* <BottomPanel /> */}
     </div>
   );
 };

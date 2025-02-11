@@ -4,6 +4,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { PiPizza } from "react-icons/pi";
 
 import EditExpenseModal from "./EditExpenseModal";
+import { useSnackbar } from "notistack";
 
 const Months = [
   "Jan",
@@ -28,8 +29,9 @@ const RecentTransaction = ({ exData, editExpense, deleteExpense }) => {
   const formatDate = (date) => {
     const dateSplit = date.split("-");
 
-    return `${Months[dateSplit[1] - 1]} ${dateSplit[2]}, ${dateSplit[0]}`;
+    return `${Months[dateSplit[1] - 1]}-${dateSplit[2]}-${dateSplit[0]}`;
   };
+  // 2024-12-18
   return (
     <>
       <div className="recent-item-container">
