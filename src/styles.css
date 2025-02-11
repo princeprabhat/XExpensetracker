@@ -39,6 +39,7 @@
 .info-panel-container .chart-container {
   background-color: transparent;
   padding: 0;
+  min-width: 220px;
 }
 .info-panel-container > div > button {
   border-radius: 38px;
@@ -64,11 +65,13 @@
   margin-top: 2rem;
   margin-bottom: 0.7rem;
 }
-.recent-transaction-conatainer {
+.recent-transaction-container {
   width: 70%;
+  user-select: none;
 }
-.top-expenses-conatainer {
+.top-expenses-container {
   width: 30%;
+  user-select: none;
 }
 .recent-trans-box {
   background-color: #ffffff;
@@ -174,4 +177,60 @@ select {
   line-height: 21.79px;
   color: #f4bb4a;
   margin-right: 14px;
+}
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  margin: 18px auto 10px auto;
+}
+.pagination-button-container {
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  padding: 14px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.current-page-active {
+  background-color: rgba(67, 150, 123, 1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px 15px;
+  font-family: "Ubuntu";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 27.58px;
+  color: rgba(255, 255, 255, 1);
+  user-select: none;
+}
+
+@media (max-width: 973px) {
+  .info-panel-container {
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+  .bottom-panel-container {
+    flex-direction: column;
+  }
+  .recent-transaction-container,
+  .top-expenses-container {
+    width: 100%;
+  }
+  .modal-container {
+    width: 80%;
+  }
+  .modal-container > form {
+    flex-direction: column;
+  }
+}
+@media (max-width: 650px) {
+  .modal-container .expense-form {
+    grid-template-columns: unset;
+    justify-content: center;
+  }
 }
