@@ -40,21 +40,23 @@ const BottomPanel = ({ expDataSet, editExpense, deleteExpense }) => {
           ) : (
             <p>No transactions!</p>
           )}
-          <div className="pagination-container">
-            <div
-              className="pagination-button-container"
-              onClick={() => handlePageChange("prevPage")}
-            >
-              <LuMoveLeft size={20} />
+          {expDataSet.length > 3 && (
+            <div className="pagination-container">
+              <div
+                className="pagination-button-container"
+                onClick={() => handlePageChange("prevPage")}
+              >
+                <LuMoveLeft size={20} />
+              </div>
+              <div className="current-page-active">{activePage + 1}</div>
+              <div
+                className="pagination-button-container"
+                onClick={() => handlePageChange("nextPage")}
+              >
+                <LuMoveRight size={20} />
+              </div>
             </div>
-            <div className="current-page-active">{activePage + 1}</div>
-            <div
-              className="pagination-button-container"
-              onClick={() => handlePageChange("nextPage")}
-            >
-              <LuMoveRight size={20} />
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="top-expenses-container">
